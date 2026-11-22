@@ -19,7 +19,7 @@ const props = withDefaults(defineProps<{
   error?: string
   paste?: boolean
 }>(), {
-  accept: () => ['image/jpeg', 'image/png', 'image/webp', 'image/heic', 'image/heif'],
+  accept: () => ['image/jpeg', 'image/png', 'image/webp'],
   maxBytes: 25 * 1024 * 1024,
   multiple: false,
   paste: true,
@@ -39,7 +39,7 @@ function take(list: FileList | File[] | null | undefined) {
   if (!list || props.disabled) return
   const ok: File[] = []
   for (const f of Array.from(list)) {
-    const typed = props.accept.includes(f.type) || (!f.type && /\.(heic|heif)$/i.test(f.name))
+    const typed = props.accept.includes(f.type)
     if (!typed) emit('reject', { file: f, reason: 'type' })
     else if (f.size > props.maxBytes) emit('reject', { file: f, reason: 'size' })
     else ok.push(f)
@@ -109,7 +109,7 @@ defineExpose({ open: () => picker.value?.click() })
 
     <p v-if="error" class="pf-small pf-drop__error" role="alert">{{ error }}</p>
     <p v-else class="pf-small pf-quiet">
-      {{ t('dropzone.accepts', 'JPEG, PNG, WebP or HEIC, up to {mb} MB each.', { mb: limit }) }}
+      {{ t('dropzone.accepts', 'JPEG, PNG or WebP, up to {mb} MB each.', { mb: limit }) }}
     </p>
   </div>
 </template>
