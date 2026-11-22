@@ -1,0 +1,170 @@
+/* Prettify tokens. The only file where a colour, size or radius literal may
+   appear. Two themes: day (default everywhere) and darkroom (the editor's
+   canvas surround, set on any element with data-pf-theme="darkroom").
+
+   Rule that shapes the palette: every surface near a photo is a TRUE neutral
+   (equal R, G, B), because a tinted interface changes how skin and colour are
+   judged. Contrast ratios are checked by `pnpm test` (test/contrast.test.mjs). */
+
+:root,
+[data-pf-theme='day'] {
+  /* surfaces */
+  --pf-table: #ececec; /* app background */
+  --pf-paper: #fafafa; /* panels, sheets, the photo's edge */
+  --pf-well: #e0e0e0; /* pressed tone, placeholder at a photo's aspect */
+
+  /* ink */
+  --pf-ink: #141414; /* text, icons, selected controls */
+  --pf-ink-2: #5e5e5e; /* secondary text */
+  --pf-on-ink: #fafafa; /* text on an ink-filled (selected) control */
+
+  /* lines */
+  --pf-line: #d4d4d4; /* dividers */
+  --pf-line-strong: #858585; /* control outlines: 3:1 against table and paper */
+
+  /* the one action colour */
+  --pf-blue: #1d3fe0; /* cyanotype blue: actions, links, focus */
+  --pf-blue-deep: #1631b4; /* hover and pressed */
+  --pf-on-blue: #ffffff;
+
+  /* the seam: compare divider and generation progress only */
+  --pf-seam: #ffc83d;
+  --pf-on-seam: #141414;
+
+  /* destructive and failed */
+  --pf-danger: #c22b1e;
+  --pf-on-danger: #ffffff;
+
+  /* overlays */
+  --pf-scrim: rgb(20 20 20 / 0.42);
+  --pf-photo-chip: rgb(20 20 20 / 0.72); /* label laid over a photo */
+  --pf-on-photo: #fafafa;
+
+  /* the single elevation: sheets and dialogs over the canvas */
+  --pf-lift: 0 0 0 1px rgb(20 20 20 / 0.06), 0 18px 48px rgb(20 20 20 / 0.2);
+}
+
+[data-pf-theme='darkroom'] {
+  --pf-table: #1c1c1c;
+  --pf-paper: #262626;
+  --pf-well: #303030;
+  --pf-ink: #f2f2f2;
+  --pf-ink-2: #a6a6a6;
+  --pf-on-ink: #1c1c1c;
+  --pf-line: #3a3a3a;
+  --pf-line-strong: #7a7a7a;
+  --pf-blue: #7c93ff;
+  --pf-blue-deep: #9aacff;
+  --pf-on-blue: #141414;
+  --pf-seam: #ffc83d;
+  --pf-on-seam: #141414;
+  --pf-danger: #ff7a6b;
+  --pf-on-danger: #141414;
+  --pf-scrim: rgb(0 0 0 / 0.6);
+  --pf-photo-chip: rgb(20 20 20 / 0.72);
+  --pf-on-photo: #fafafa;
+  --pf-lift: 0 0 0 1px rgb(255 255 255 / 0.08), 0 18px 48px rgb(0 0 0 / 0.6);
+  color: var(--pf-ink);
+}
+
+:root {
+  /* ── space: 4 px base ─────────────────────────────────────────────────── */
+  --pf-0h: 2px;
+  --pf-1: 4px;
+  --pf-2: 8px;
+  --pf-3: 12px;
+  --pf-4: 16px;
+  --pf-5: 20px;
+  --pf-6: 24px;
+  --pf-8: 32px;
+  --pf-10: 40px;
+  --pf-12: 48px;
+  --pf-16: 64px;
+  --pf-24: 96px;
+
+  /* ── shape: controls are rounded, sheets more so, photos never ────────── */
+  --pf-r-control: 10px;
+  --pf-r-sheet: 16px;
+  --pf-r-photo: 0px;
+  --pf-r-round: 999px; /* switch track, avatar: geometry, not style */
+
+  /* ── lines ────────────────────────────────────────────────────────────── */
+  --pf-hair: 1px;
+  --pf-focus: 2px; /* focus ring width, drawn in --pf-blue */
+  --pf-focus-gap: 2px;
+
+  /* ── the seam ─────────────────────────────────────────────────────────── */
+  --pf-seam-w: 2px;
+  --pf-seam-grip-w: 14px;
+  --pf-seam-grip-h: 44px;
+
+  /* ── the print ────────────────────────────────────────────────────────── */
+  --pf-edge: 4px; /* the paper edge around a photo */
+  --pf-edge-thin: 2px; /* in dense sheets and on phones */
+
+  /* ── targets and fixed chrome ─────────────────────────────────────────── */
+  --pf-tap: 44px; /* minimum touch target */
+  --pf-control-h: 44px;
+  --pf-control-h-s: 36px;
+  --pf-rail-w: 76px;
+  --pf-panel-w: 340px;
+  --pf-tabbar-h: 60px;
+  --pf-topbar-h: 56px;
+  --pf-icon: 20px;
+  --pf-icon-s: 16px;
+  --pf-avatar: 36px;
+  --pf-avatar-s: 24px;
+  --pf-avatar-l: 72px;
+  --pf-thumb: 56px;
+  --pf-measure: 62ch; /* reading line length */
+  --pf-page: 1240px; /* widest content column */
+  --pf-safe-b: env(safe-area-inset-bottom, 0px);
+  --pf-safe-t: env(safe-area-inset-top, 0px);
+
+  /* ── type: one family, Commissioner. Display steps flare, text steps don't */
+  --pf-font: 'Commissioner', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --pf-mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; /* code samples on /api only */
+
+  --pf-t-display-xl: clamp(2.75rem, 1.6rem + 4.9vw, 5.75rem);
+  --pf-t-display-l: clamp(2.125rem, 1.5rem + 2.6vw, 3.5rem);
+  --pf-t-display-m: clamp(1.625rem, 1.4rem + 0.9vw, 2.125rem);
+  --pf-t-title: 1.25rem;
+  --pf-t-body: 1rem;
+  --pf-t-label: 0.875rem;
+  --pf-t-small: 0.8125rem;
+
+  --pf-lh-display-xl: 0.98;
+  --pf-lh-display-l: 1.04;
+  --pf-lh-display-m: 1.14;
+  --pf-lh-title: 1.3;
+  --pf-lh-body: 1.5;
+  --pf-lh-label: 1.35;
+  --pf-lh-small: 1.4;
+
+  --pf-flar-display-xl: 100;
+  --pf-flar-display-l: 100;
+  --pf-flar-display-m: 70;
+  --pf-flar-text: 0;
+
+  --pf-w-regular: 400;
+  --pf-w-medium: 500;
+  --pf-w-strong: 620;
+  --pf-w-display: 560;
+
+  --pf-track-display: -0.022em;
+  --pf-track-title: -0.006em;
+
+  /* ── motion: it answers the person. The sweep is the one exception. ───── */
+  --pf-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --pf-ease-sweep: cubic-bezier(0.45, 0.05, 0.3, 0.95);
+  --pf-d-press: 90ms; /* a control acknowledging a press */
+  --pf-d-move: 220ms; /* a sheet, a panel, a toast */
+  --pf-d-settle: 900ms; /* the seam settling after the landing sweep */
+  --pf-d-sweep: 2600ms; /* one pass of the develop sweep */
+
+  /* ── layers ───────────────────────────────────────────────────────────── */
+  --pf-z-chrome: 20;
+  --pf-z-sheet: 40;
+  --pf-z-dialog: 50;
+  --pf-z-toast: 60;
+}

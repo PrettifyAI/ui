@@ -1,0 +1,36 @@
+/* Tailwind 4 theme bridge. Imported by the consumer AFTER `@import
+   'tailwindcss'`, it turns the tokens into utilities (bg-table, text-ink-2,
+   border-line, rounded-control …) so a page never needs a literal either. */
+
+@theme inline {
+  --color-*: initial;
+  --color-table: var(--pf-table);
+  --color-paper: var(--pf-paper);
+  --color-well: var(--pf-well);
+  --color-ink: var(--pf-ink);
+  --color-ink-2: var(--pf-ink-2);
+  --color-on-ink: var(--pf-on-ink);
+  --color-line: var(--pf-line);
+  --color-line-strong: var(--pf-line-strong);
+  --color-blue: var(--pf-blue);
+  --color-on-blue: var(--pf-on-blue);
+  --color-seam: var(--pf-seam);
+  --color-danger: var(--pf-danger);
+  --color-transparent: transparent;
+  --color-current: currentColor;
+
+  --radius-*: initial;
+  --radius-control: var(--pf-r-control);
+  --radius-sheet: var(--pf-r-sheet);
+  --radius-photo: var(--pf-r-photo);
+
+  --font-*: initial;
+  --font-sans: var(--pf-font);
+  --font-mono: var(--pf-mono);
+
+  --shadow-*: initial;
+  --shadow-lift: var(--pf-lift);
+
+  --container-page: var(--pf-page);
+  --container-measure: var(--pf-measure);
+}

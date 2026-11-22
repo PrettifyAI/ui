@@ -1,0 +1,166 @@
+/* Prettify base layer: page ground, the type steps, focus, and the few
+   classes shared by more than one component. Everything reads tokens. */
+
+@layer base {
+  html {
+    font-family: var(--pf-font);
+    font-size: 100%;
+    font-variation-settings: 'FLAR' var(--pf-flar-text), 'VOLM' 0;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100dvh;
+    background: var(--pf-table);
+    color: var(--pf-ink);
+    font-size: var(--pf-t-body);
+    line-height: var(--pf-lh-body);
+    font-weight: var(--pf-w-regular);
+  }
+
+  /* One focus treatment for everything: a blue ring, never removed. */
+  :focus-visible {
+    outline: var(--pf-focus) solid var(--pf-blue);
+    outline-offset: var(--pf-focus-gap);
+  }
+
+  /* Lucide at the system's 1.5 px stroke. The CSS property wins over the
+     icon's own stroke-width attribute, so no call site has to pass it. */
+  svg.lucide {
+    stroke-width: 1.5px;
+    flex: none;
+  }
+
+  ::selection {
+    background: var(--pf-ink);
+    color: var(--pf-on-ink);
+  }
+}
+
+@layer components {
+  /* ── type steps ───────────────────────────────────────────────────────── */
+  .pf-display-xl,
+  .pf-display-l,
+  .pf-display-m {
+    font-weight: var(--pf-w-display);
+    letter-spacing: var(--pf-track-display);
+    text-wrap: balance;
+    margin: 0;
+    /* Long compounds (German, Finnish) may break rather than overflow. */
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
+  .pf-display-xl {
+    font-size: var(--pf-t-display-xl);
+    line-height: var(--pf-lh-display-xl);
+    font-variation-settings: 'FLAR' var(--pf-flar-display-xl), 'VOLM' 0;
+  }
+  .pf-display-l {
+    font-size: var(--pf-t-display-l);
+    line-height: var(--pf-lh-display-l);
+    font-variation-settings: 'FLAR' var(--pf-flar-display-l), 'VOLM' 0;
+  }
+  .pf-display-m {
+    font-size: var(--pf-t-display-m);
+    line-height: var(--pf-lh-display-m);
+    font-variation-settings: 'FLAR' var(--pf-flar-display-m), 'VOLM' 0;
+  }
+  .pf-title {
+    font-size: var(--pf-t-title);
+    line-height: var(--pf-lh-title);
+    font-weight: var(--pf-w-strong);
+    letter-spacing: var(--pf-track-title);
+    margin: 0;
+  }
+  .pf-body {
+    font-size: var(--pf-t-body);
+    line-height: var(--pf-lh-body);
+    margin: 0;
+  }
+  .pf-label {
+    font-size: var(--pf-t-label);
+    line-height: var(--pf-lh-label);
+    font-weight: var(--pf-w-medium);
+    margin: 0;
+  }
+  .pf-small {
+    font-size: var(--pf-t-small);
+    line-height: var(--pf-lh-small);
+    margin: 0;
+  }
+  .pf-quiet {
+    color: var(--pf-ink-2);
+  }
+  /* Numbers that change: progress, counts, sizes. */
+  .pf-num {
+    font-variant-numeric: tabular-nums;
+  }
+  .pf-measure {
+    max-width: var(--pf-measure);
+  }
+
+  /* A text link: blue, underlined on hover, never with an arrow glued on. */
+  .pf-link {
+    color: var(--pf-blue);
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-underline-offset: 0.2em;
+    font-weight: var(--pf-w-medium);
+    border-radius: var(--pf-1);
+    cursor: pointer;
+    background: none;
+    border: 0;
+    padding: 0;
+    font: inherit;
+    font-weight: var(--pf-w-medium);
+  }
+  .pf-link:hover {
+    text-decoration-color: currentColor;
+  }
+
+  .pf-sr {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* A label laid over a photo (Original / Result, a video's length). The one
+     place text sits on a picture, so it brings its own ground. */
+  .pf-photo-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--pf-1);
+    padding: var(--pf-0h) var(--pf-2);
+    border-radius: var(--pf-r-control);
+    background: var(--pf-photo-chip);
+    color: var(--pf-on-photo);
+    font-size: var(--pf-t-small);
+    line-height: var(--pf-lh-small);
+    font-weight: var(--pf-w-medium);
+    font-variant-numeric: tabular-nums;
+  }
+  .pf-photo-chip .pf-status {
+    color: inherit;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
