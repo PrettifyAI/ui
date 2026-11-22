@@ -34,9 +34,16 @@ defineProps<{ title: string, text?: string }>()
   gap: var(--pf-4);
   align-content: start;
 }
+/* The action stays in reach while long options scroll behind it. The offsets
+   cancel the scrolling parent's bottom padding (a sheet's body). */
 .pf-panel__action {
+  position: sticky;
+  bottom: calc(var(--pf-5) * -1);
   display: grid;
   gap: var(--pf-2);
   margin-top: auto;
+  margin-bottom: calc(var(--pf-5) * -1);
+  padding: var(--pf-3) 0 var(--pf-5);
+  background: var(--pf-paper);
 }
 </style>

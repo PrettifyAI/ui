@@ -25,13 +25,12 @@ export interface DevelopState {
  * estimated duration while it is made. Never a percentage, never negative.
  */
 export function developLine(s: DevelopState, now: number, t: Translate): string {
-  const ord = '{n, selectordinal, one {#st} two {#nd} few {#rd} other {#th}}'
   if (s.status === 'queued') {
     const secs = s.estStart ? (new Date(s.estStart).getTime() - now) / 1000 : undefined
     if (!s.position) return t('develop.waiting', 'Waiting to start')
-    if (secs === undefined) return t('develop.in_line', `${ord} in line`, { n: s.position })
-    if (secs <= 3) return t('develop.in_line_soon', `${ord} in line, starts in a moment`, { n: s.position })
-    return t('develop.in_line_starts', `${ord} in line, starts in {time}`, { n: s.position, time: roughDuration(secs, t) })
+    if (secs === undefined) return t('develop.in_line', '{n, selectordinal, one {#st} two {#nd} few {#rd} other {#th}} in line', { n: s.position })
+    if (secs <= 3) return t('develop.in_line_soon', '{n, selectordinal, one {#st} two {#nd} few {#rd} other {#th}} in line, starts in a moment', { n: s.position })
+    return t('develop.in_line_starts', '{n, selectordinal, one {#st} two {#nd} few {#rd} other {#th}} in line, starts in {time}', { n: s.position, time: roughDuration(secs, t) })
   }
   const video = s.kind === 'video'
   const elapsed = s.startedAt ? (now - new Date(s.startedAt).getTime()) / 1000 : 0

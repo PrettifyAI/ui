@@ -33,6 +33,7 @@ const props = withDefaults(defineProps<{
 }>(), { rowHeight: 232, rowHeightNarrow: 132, gap: 8, selected: () => [] })
 
 const emit = defineEmits<{ 'open': [item: T], 'update:selected': [ids: string[]] }>()
+const t = useT()
 
 const root = ref<HTMLElement>()
 const width = ref(0)
@@ -165,18 +166,20 @@ defineExpose({ offsetOf, el: root })
             :style="{ left: `${cell.x}px`, width: `${cell.w}px`, height: `${row.h}px` }"
           >
             <slot name="item" :item="cell.item" :selected="selected.includes(cell.item.id)">
-              <PfVideo
-                v-if="cell.item.video"
-                :src="cell.item.video"
-                :poster="cell.item.src"
-                :width="cell.item.width"
-                :height="cell.item.height"
-                :seconds="cell.item.seconds"
-                :alt="cell.item.alt"
-                edge="thin"
-                hover-play
-              />
-              <div v-if="cell.item.video && $slots.actions" class="pf-sheet-grid__vactions"><slot name="actions" :item="cell.item" /></div>
+              <template v-if="cell.item.video">
+                <PfVideo
+                  :src="cell.item.video"
+                  :poster="cell.item.src"
+                  :width="cell.item.width"
+                  :height="cell.item.height"
+                  :seconds="cell.item.seconds"
+                  :alt="cell.item.alt"
+                  edge="thin"
+                  hover-play
+                />
+                <NuxtLink v-if="to?.(cell.item)" :to="to(cell.item)!" class="pf-sheet-grid__vopen pf-photo-chip">{{ t('sheet.open', 'Open') }}</NuxtLink>
+                <div v-if="$slots.actions" class="pf-sheet-grid__vactions"><slot name="actions" :item="cell.item" /></div>
+              </template>
               <PfPrint
                 v-else
                 :src="cell.item.src"
@@ -260,6 +263,14 @@ defineExpose({ offsetOf, el: root })
   position: absolute;
   top: 0;
   inset-inline-end: 0;
+}
+/* A clip plays on tap, so its way to the detail view is its own small link. */
+.pf-sheet-grid__vopen {
+  position: absolute;
+  inset-inline-end: var(--pf-2);
+  bottom: var(--pf-2);
+  text-decoration: none;
+  min-height: var(--pf-6);
 }
 .pf-sheet-grid--css {
   display: flex;
