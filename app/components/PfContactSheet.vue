@@ -30,7 +30,9 @@ const props = withDefaults(defineProps<{
   selectable?: boolean
   selected?: string[]
   to?: (item: T) => string | undefined
-}>(), { rowHeight: 232, rowHeightNarrow: 132, gap: 8, selected: () => [] })
+  /** How far a short last row may grow to fill the width before it is left ragged. */
+  maxStretch?: number
+}>(), { rowHeight: 232, rowHeightNarrow: 132, gap: 8, selected: () => [], maxStretch: 1.9 })
 
 const emit = defineEmits<{ 'open': [item: T], 'update:selected': [ids: string[]] }>()
 const t = useT()
@@ -64,10 +66,11 @@ const layout = computed(() => {
     const flush = (last: boolean) => {
       if (!line.length) return
       const gaps = props.gap * (line.length - 1)
-      // A full row is scaled to fill the width. The last, short row keeps the
-      // target height rather than being blown up to fill it.
+      // A full row is scaled to fill the width. A short last row (a day with two
+      // or three photos) grows to fill it too, up to `maxStretch`; past that it
+      // keeps the target height rather than being blown up.
       const natural = (W - gaps) / sum
-      const h = last && natural > target * 1.25 ? target : natural
+      const h = last && natural > target * props.maxStretch ? target : natural
       let x = 0
       const cells = line.map((item) => {
         const w = (item.width / item.height) * h

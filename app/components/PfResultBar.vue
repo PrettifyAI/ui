@@ -17,7 +17,7 @@ const t = useT()
 
 <template>
   <div class="pf-result" role="group" :aria-label="t('result.group', 'Result actions')">
-    <PfButton variant="primary" :disabled="kept || busy" @click="$emit('keep')">
+    <PfButton :variant="kept ? 'ghost' : 'primary'" :disabled="kept || busy" @click="$emit('keep')">
       <template #icon><Check v-if="kept" :size="20" aria-hidden="true" /></template>
       {{ kept ? t('result.kept', 'Kept') : t('result.keep', 'Keep') }}
     </PfButton>
@@ -51,8 +51,13 @@ const t = useT()
 .pf-result__gap {
   flex: 1 1 var(--pf-2);
 }
+/* Compare is a toggle, not a second primary: on is a quiet well with a rule. */
 .pf-result :deep(.is-on) {
-  background: var(--pf-ink);
-  color: var(--pf-on-ink);
+  background: var(--pf-well);
+  box-shadow: inset 0 calc(var(--pf-0h) * -1) 0 var(--pf-ink);
+}
+.pf-result :deep(.pf-btn--ghost[aria-disabled]) {
+  opacity: 1;
+  color: var(--pf-ink-2);
 }
 </style>

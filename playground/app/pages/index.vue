@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {
-  Bell, Camera, Crop, Eraser, Film, Home, Images, Rotate3d, Scaling, Search, Trash2, User, Users, Wand2, PenLine,
+  Bell, Camera, Crop, Eraser, Film, Home, Images, Rotate3d, Scaling, Search, Trash2, User, Users, SunMedium, PenLine,
 } from 'lucide-vue-next'
 
 const t = useT()
@@ -83,7 +83,7 @@ onMounted(() => {
 })
 
 const tools = [
-  { id: 'enhance', label: 'Enhance', icon: Wand2 },
+  { id: 'enhance', label: 'Enhance', icon: SunMedium },
   { id: 'edit', label: 'Edit', icon: PenLine },
   { id: 'sharper', label: 'Make it sharper', icon: Scaling },
   { id: 'background', label: 'Remove background', icon: Eraser },
@@ -153,6 +153,10 @@ const sections = [
 
         <h3 class="pf-title">Type: Commissioner, one family</h3>
         <p class="pf-body pf-quiet pf-measure">Display steps turn up the flare axis; text steps do not. Sentence case everywhere. Changing numbers are tabular.</p>
+        <div class="ref__flare">
+          <p class="ref__flare-0">Developed <span class="pf-small pf-quiet">FLAR 0</span></p>
+          <p class="ref__flare-100">Developed <span class="pf-small pf-quiet">FLAR 100</span></p>
+        </div>
         <div class="ref__scale">
           <div v-for="s in scale" :key="s.cls" class="ref__scale-row">
             <p :class="s.cls">Your photos, developed</p>
@@ -214,7 +218,7 @@ const sections = [
           <div><p class="pf-small pf-quiet">Quiet</p><PfButton>Try again</PfButton></div>
           <div><p class="pf-small pf-quiet">Ghost</p><PfButton variant="ghost">Compare</PfButton></div>
           <div><p class="pf-small pf-quiet">Destructive</p><PfButton variant="destructive"><template #icon><Trash2 :size="20" /></template>Delete 3 photos</PfButton></div>
-          <div><p class="pf-small pf-quiet">With icon</p><PfButton variant="primary"><template #icon><Wand2 :size="20" /></template>Enhance photo</PfButton></div>
+          <div><p class="pf-small pf-quiet">With icon</p><PfButton variant="primary"><template #icon><SunMedium :size="20" /></template>Enhance photo</PfButton></div>
           <div><p class="pf-small pf-quiet">Loading</p><PfButton variant="primary" loading>Enhancing</PfButton></div>
           <div><p class="pf-small pf-quiet">Disabled</p><PfButton variant="primary" disabled>Enhance photo</PfButton></div>
           <div><p class="pf-small pf-quiet">Small</p><PfButton size="s">Cancel</PfButton></div>
@@ -560,6 +564,11 @@ const sections = [
 .ref__table caption { text-align: start; padding-bottom: var(--pf-2); }
 .ref__table th, .ref__table td { text-align: start; padding: var(--pf-2) var(--pf-3); border-bottom: var(--pf-hair) solid var(--pf-line); vertical-align: top; }
 .ref__table th { font-weight: var(--pf-w-strong); }
+.ref__flare { display: grid; gap: var(--pf-2); padding: var(--pf-5); background: var(--pf-paper); }
+.ref__flare p { margin: 0; font-size: var(--pf-t-display-xl); line-height: 1.05; font-weight: var(--pf-w-display); letter-spacing: var(--pf-track-display); }
+.ref__flare span { letter-spacing: 0; font-variation-settings: 'FLAR' 0; }
+.ref__flare-0 { font-variation-settings: 'FLAR' 0, 'VOLM' 0; }
+.ref__flare-100 { font-variation-settings: 'FLAR' 100, 'VOLM' 0; }
 .ref__scale { display: grid; gap: var(--pf-4); }
 .ref__scale-row { display: grid; gap: var(--pf-1); padding-bottom: var(--pf-3); border-bottom: var(--pf-hair) solid var(--pf-line); }
 .ref__scale-row p { margin: 0; }
