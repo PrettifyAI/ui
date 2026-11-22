@@ -293,8 +293,10 @@ const valueText = computed(() =>
   top: 0;
   bottom: 0;
   left: 50%;
-  width: calc(var(--pf-seam-w) / var(--pf-zoom, 1));
-  margin-left: calc(var(--pf-seam-w) / var(--pf-zoom, 1) / -2);
+  width: var(--pf-seam-w);
+  margin-left: calc(var(--pf-seam-w) / -2);
+  /* Scaled, not narrowed: a sub-pixel width is rounded up before the zoom. */
+  transform: scaleX(calc(1 / var(--pf-zoom, 1)));
   background: var(--pf-seam);
 }
 .pf-compare__grip {

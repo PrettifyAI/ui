@@ -29,6 +29,9 @@ function pick(id: string) {
   active.value = id
   emit('pick', id)
 }
+// Keep the active tool in sight when labels are long and the strip scrolls.
+watch(active, () => nextTick(() => root.value?.querySelector('.is-active')?.scrollIntoView({ block: 'nearest', inline: 'center' })), { flush: 'post' })
+onMounted(() => root.value?.querySelector('.is-active')?.scrollIntoView({ block: 'nearest', inline: 'center' }))
 const tabStop = computed(() => (props.tools.some(x => x.id === active.value) ? active.value : props.tools[0]?.id))
 </script>
 

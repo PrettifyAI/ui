@@ -4,7 +4,7 @@
  * it says so, offers the plans, and the parent resumes on `choose`.
  */
 export interface PfPaywallPlan { id: string, name: string, price: string, period?: string, features: string[], current?: boolean }
-defineProps<{
+withDefaults(defineProps<{
   title?: string
   text?: string
   plans: PfPaywallPlan[]
@@ -14,7 +14,7 @@ defineProps<{
   canBuy?: boolean
   busy?: string | null
   note?: string
-}>()
+}>(), { canBuy: true })
 const open = defineModel<boolean>('open', { default: false })
 defineEmits<{ choose: [planId: string], later: [] }>()
 const t = useT()
@@ -38,7 +38,7 @@ const t = useT()
           :current="p.current"
         >
           <PfButton
-            v-if="!p.current && canBuy !== false"
+            v-if="!p.current && canBuy"
             variant="primary"
             block
             :loading="busy === p.id"

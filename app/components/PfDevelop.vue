@@ -86,7 +86,8 @@ const line = computed(() => developLine(props, now.value, t))
   top: 0;
   bottom: 0;
   left: 0;
-  width: calc(var(--pf-seam-w) / var(--pf-zoom, 1));
+  width: var(--pf-seam-w);
+  transform: scaleX(calc(1 / var(--pf-zoom, 1)));
   background: var(--pf-seam);
 }
 .pf-develop--running .pf-develop__seam {
