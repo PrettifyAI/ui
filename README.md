@@ -59,9 +59,12 @@ export default defineNuxtConfig({ extends: [uiLayer], alias: { '#pfui': `${uiLay
 The layer has no `css:` entry on purpose (a layer that loads its own sheet gets
 a second Tailwind instance). Mount `<PfToast />` once in `app.vue`.
 
-**Pinning.** The app currently depends on `link:../ui`. Once the GitHub repo
-exists the dependency becomes `github:PrettifyAI/ui#v0.1.0` (the `@gymmer/ui`
-pattern); the tag `v0.1.0` is already on this commit locally.
+**Pinning.** The app depends on this layer by tag:
+`"@prettify/ui": "github:PrettifyAI/ui#v0.1.2"` (the `@gymmer/ui` pattern). A
+change here reaches the app only after a new tag is pushed and the app's
+`package.json` is moved to it. A git install takes `dependencies` only, so
+anything a component imports at runtime must be listed there, not in
+`devDependencies`.
 
 ## Rules the components keep
 
