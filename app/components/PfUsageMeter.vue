@@ -11,7 +11,7 @@ const left = computed(() => Math.max(0, props.limit - props.used))
     <div class="pf-meter__head">
       <span class="pf-label">{{ label }}</span>
       <span class="pf-small pf-num">
-        {{ t('meter.left', '{left} of {limit} left', { left, limit }) }}<template v-if="unit"> {{ unit }}</template>
+        {{ unit ? t('meter.left_unit', '{left} of {limit} {unit} left', { left, limit, unit }) : t('meter.left', '{left} of {limit} left', { left, limit }) }}
       </span>
     </div>
     <div

@@ -106,7 +106,7 @@
   --pf-tap: 44px; /* minimum touch target */
   --pf-control-h: 44px;
   --pf-control-h-s: 36px;
-  --pf-rail-w: 76px;
+  --pf-rail-w: 96px; /* fits "Notifications" on one line */
   --pf-panel-w: 340px;
   --pf-tabbar-h: 60px;
   --pf-topbar-h: 56px;

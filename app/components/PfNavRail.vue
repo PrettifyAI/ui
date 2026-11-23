@@ -69,7 +69,7 @@ const isActive = (to: string) => route.path === to || route.path.startsWith(`${t
   line-height: 1.2;
   font-weight: var(--pf-w-medium);
   text-align: center;
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
   hyphens: auto;
 }
 .pf-rail__icon {
