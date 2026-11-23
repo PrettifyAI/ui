@@ -204,7 +204,8 @@ const sections = [
           </figure>
           <figure class="ref__logos">
             <PfLogo size="l" /><PfLogo /><PfLogo size="s" />
-            <figcaption class="pf-small pf-quiet">Logo. Plain letters before the seam, the same letters flared after it.</figcaption>
+            <PfLogo size="xl" loop />
+            <figcaption class="pf-small pf-quiet">Logo. Plain letters before the seam, the same letters flared after it. The large one is developing in a loop, as the page loader shows it.</figcaption>
           </figure>
         </div>
       </section>
