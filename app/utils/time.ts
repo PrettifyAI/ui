@@ -17,6 +17,8 @@ export interface DevelopState {
   startedAt?: string
   estSeconds?: number
   kind?: 'photo' | 'video'
+  /** Handed over, not yet seen in the queue: say so, with no number. */
+  starting?: boolean
 }
 
 /**
@@ -25,6 +27,7 @@ export interface DevelopState {
  * estimated duration while it is made. Never a percentage, never negative.
  */
 export function developLine(s: DevelopState, now: number, t: Translate): string {
+  if (s.starting) return t('develop.starting', 'Starting')
   if (s.status === 'queued') {
     const secs = s.estStart ? (new Date(s.estStart).getTime() - now) / 1000 : undefined
     if (!s.position) return t('develop.waiting', 'Waiting to start')
