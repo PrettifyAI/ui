@@ -99,6 +99,9 @@ const layout = computed(() => {
 const visible = computed(() => {
   const l = layout.value
   if (!l) return []
+  // A capped sheet (maxRows) is short: draw all of it, so it is there for a
+  // print, a full-page capture or anything else that does not scroll.
+  if (props.maxRows) return l.rows
   const pad = 600
   return l.rows.filter(r => r.y + r.h >= view.value.top - pad && r.y <= view.value.bottom + pad)
 })
